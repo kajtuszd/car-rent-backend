@@ -1,0 +1,15 @@
+version: "3"
+services:
+
+ car_rent_back:
+  build: ./code
+  container_name: car_rent_back
+  restart: unless-stopped
+  ports:
+   - "8000:8000"
+  env_file:
+   - .env
+  volumes:
+   - ./code:/code
+  entrypoint: "bash /code/docker-entrypoint.sh"
+  command: "runserver 0.0.0.0:8000"
