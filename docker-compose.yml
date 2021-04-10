@@ -11,4 +11,5 @@ services:
    - .env
   volumes:
    - ./code:/code
+  entrypoint: "bash /code/docker-entrypoint.sh"
   command: "runserver 0.0.0.0:8000"
