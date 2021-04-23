@@ -1,5 +1,12 @@
 #!/bin/bash
 
+ownership() {
+    # Fixes files ownership
+    # source: https://github.com/BD2KGenomics/cgl-docker-lib/blob/master/mutect/runtime/wrapper.sh#L5
+    user_id=$(stat -c '%u:%g' /code)
+    chown -R ${user_id} /code
+}
+
 echo ''
 echo '--------------------------'
 echo 'Install missing packages'
@@ -33,6 +40,13 @@ echo 'Pylint'
 echo '--------------------------'
 echo ''
 find . -type f -name "*.py" | xargs pylint
+
+echo ''
+echo '--------------------------'
+echo 'Ownership fixes'
+echo '--------------------------'
+echo ''
+ownership
 
 echo ''
 echo '-------------------------'
