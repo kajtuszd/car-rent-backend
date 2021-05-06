@@ -3,7 +3,6 @@ from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import (MaxValueValidator, MinValueValidator,
                                                             RegexValidator)
-from .validators import validate_decimals
 
 
 class EngineType():
@@ -16,10 +15,9 @@ class EngineType():
 
 
 class Engine(models.Model):
-    capacity = models.FloatField(_('Capacity'), default=2.0, blank=False, 
-                                                validators=[validate_decimals,
-                                                    MaxValueValidator(6.0),
-                                                    MinValueValidator(0.7)])
+    capacity = models.DecimalField(_('Capacity'), default=2.0, max_digits=4, 
+                validators=[MaxValueValidator(6.0), MinValueValidator(0.7)],
+                                                decimal_places=2, blank=False)
     horsepower = models.IntegerField(_('Horsepower'), blank=False, default=100,
                 validators=[MaxValueValidator(1000), MinValueValidator(20)])
     engine_type = models.CharField(_('Engine type'), max_length=20,
@@ -49,7 +47,14 @@ class CarChoices():
     )
 
 
-class Car(models.Model):    
+class Car(models.Model):
+    # price per day
+    # fuel usage
+    # segment
+    # photo
+    # max passengers
+    # engine
+
     brand = models.CharField(_('Brand'), max_length=30, blank=False)
     model = models.CharField(_('Model'), max_length=30, blank=False)
     production_year = models.PositiveIntegerField(_('Production year'),
@@ -62,7 +67,11 @@ class Car(models.Model):
                             max_length=10, blank=False, unique=True, null=True)
     status = models.CharField(_('Status'), max_length=20,
                                                     choices=CarChoices.STATUS)
-    
+    price_per_day = models.DecimalField(_('€ Price per day'), max_digits=5,
+            validators=[MaxValueValidator(999.99), MinValueValidator(10.00)],
+                                            decimal_places=2, default="50.00")
+
+
     class Meta:
         verbose_name = _('car')
         verbose_name_plural = _('cars')
