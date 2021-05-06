@@ -39,7 +39,7 @@ def max_value_current_year(value):
     return MaxValueValidator(return_current_year())(value)
 
 
-class CarChoices():
+class CarStatus():
     STATUS = (
         ('HIRED', _('HIRED')),
         ('AVAILABLE', _('AVAILABLE')),
@@ -48,13 +48,6 @@ class CarChoices():
 
 
 class Car(models.Model):
-    # price per day
-    # fuel usage
-    # segment
-    # photo
-    # max passengers
-    # engine
-
     brand = models.CharField(_('Brand'), max_length=30, blank=False)
     model = models.CharField(_('Model'), max_length=30, blank=False)
     production_year = models.PositiveIntegerField(_('Production year'),
@@ -66,10 +59,17 @@ class Car(models.Model):
         _("Please enter 2-3 letters, whitespace and 5-6 signs"), 'invalid')],
                             max_length=10, blank=False, unique=True, null=True)
     status = models.CharField(_('Status'), max_length=20,
-                                                    choices=CarChoices.STATUS)
+                                                    choices=CarStatus.STATUS)
     price_per_day = models.DecimalField(_('€ Price per day'), max_digits=5,
             validators=[MaxValueValidator(999.99), MinValueValidator(10.00)],
                                             decimal_places=2, default="50.00")
+    fuel_usage = models.DecimalField(_('l/100km fuel usage'), max_digits=3,
+            validators=[MaxValueValidator(20.0), MinValueValidator(4.0)],
+                                            decimal_places=1, default="7")
+    max_passengers = models.IntegerField(_('Max passengers'), default="5",
+                    validators=[MaxValueValidator(9), MinValueValidator(3)])
+    image = models.ImageField(_('Car image'), null=True, blank=True, upload_to='pics')
+    engine = models.ForeignKey(Engine, on_delete=models.CASCADE)
 
 
     class Meta:
