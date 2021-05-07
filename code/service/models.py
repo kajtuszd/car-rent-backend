@@ -13,9 +13,14 @@ class PaymentMethod():
     )
 
 
-def no_future_validator(payment_date):
-    if payment_date.date() > date.today():
-        raise ValidationError('Payment cannot be done in the future.')
+def no_future_validator(chosen_date):
+    if chosen_date.date() > date.today():
+        raise ValidationError('This cannot be done in the future.')
+
+
+def no_past_validator(chosen_date):
+    if chosen_date.date() < date.today():
+        raise ValidationError('This cannot be done in the past.')
 
 
 class Payment(models.Model):
@@ -36,3 +41,15 @@ class Payment(models.Model):
 
     def __str__(self):
         return f'{self.payment_method} {self.amount}€'
+
+
+class Service(models.Model):
+    payment = models.OneToOneField(Payment, on_delete=models.PROTECT)
+    rent_date = models.DateTimeField(_('Rent date'), blank=False, null=True,
+                                            validators=[no_past_validator])
+    return_date = models.DateTimeField(_('Return date'), blank=False, null=True,
+                                            validators=[no_past_validator])
+    
+    class Meta:
+        verbose_name = _('service')
+        verbose_name_plural = _('services')
