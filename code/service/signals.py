@@ -13,6 +13,6 @@ def not_paid_validator(instance, **kwargs):
 
 
 @receiver(pre_save, sender=Service)
-def not_paid_validator(instance, **kwargs):
+def return_date_validator(instance, **kwargs):
     if instance.rent_date > instance.return_date:
         raise ValidationError('Return date should be after rent date.')

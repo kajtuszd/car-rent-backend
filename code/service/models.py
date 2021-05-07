@@ -3,6 +3,8 @@ from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
 from datetime import date
+from utils.slugify import generate_slug
+from django_extensions.db.fields import AutoSlugField
 
 
 class PaymentMethod():
@@ -34,13 +36,15 @@ class Payment(models.Model):
     date = models.DateTimeField(_('Payment date'), null=True, blank=True,
                                             validators=[no_future_validator],
                                             help_text="Enter only if payment was made")
-    
+    slug_field = models.CharField(_('Slug'), default=generate_slug, max_length=7,
+                             unique=True, db_index=True, editable=False)
+
     class Meta:
         verbose_name = _('payment')
         verbose_name_plural = _('payments')
 
     def __str__(self):
-        return f'{self.payment_method} {self.amount}€'
+        return f'Payment {self.slug_field}'
 
 
 class Service(models.Model):
@@ -49,7 +53,12 @@ class Service(models.Model):
                                             validators=[no_past_validator])
     return_date = models.DateTimeField(_('Return date'), blank=False, null=True,
                                             validators=[no_past_validator])
-    
+    slug_field = models.CharField(_('Slug'), default=generate_slug, max_length=7,
+                             unique=True, db_index=True, editable=False)
+
     class Meta:
         verbose_name = _('service')
         verbose_name_plural = _('services')
+    
+    def __str__(self):
+        return f'Service {self.slug_field}'
