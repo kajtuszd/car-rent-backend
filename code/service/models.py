@@ -1,3 +1,4 @@
+from car.models import Car
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
@@ -54,6 +55,8 @@ class Service(models.Model):
                                      validators=[no_past_validator])
     return_date = models.DateTimeField(_('Return date'), blank=False, null=True,
                                        validators=[no_past_validator])
+    car = models.ForeignKey(Car, on_delete=models.PROTECT, null=True,
+                            blank=False, unique=False)
     slug_field = models.CharField(_('Slug'), default=generate_slug,
                                   max_length=7,
                                   unique=True, db_index=True, editable=False)
