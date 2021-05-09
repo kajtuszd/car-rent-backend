@@ -1,9 +1,9 @@
+from .validators import no_future_validator, no_past_validator
 from car.models import Car
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
 from django.core.exceptions import ValidationError
-from datetime import date
 from utils.slugify import generate_slug
 from django_extensions.db.fields import AutoSlugField
 
@@ -14,16 +14,6 @@ class PaymentMethod():
         ('BANK_TRANSFER', _('BANK TRANSFER')),
         ('CREDIT_CARD', _('CREDIT CARD')),
     )
-
-
-def no_future_validator(chosen_date):
-    if chosen_date.date() > date.today():
-        raise ValidationError('This cannot be done in the future.')
-
-
-def no_past_validator(chosen_date):
-    if chosen_date.date() < date.today():
-        raise ValidationError('This cannot be done in the past.')
 
 
 class Payment(models.Model):
