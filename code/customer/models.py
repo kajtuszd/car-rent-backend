@@ -1,6 +1,4 @@
-from django.db.models.deletion import PROTECT
 from contact_data.models import Address, Contact
-from service.models import Service
 from django.db import models
 from django.contrib.auth.models import AbstractUser
 from django.core.validators import RegexValidator
