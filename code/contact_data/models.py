@@ -2,7 +2,7 @@ from django.db import models
 from django.core.validators import (EmailValidator, MaxValueValidator,
                                     MinValueValidator, RegexValidator)
 from django.utils.translation import ugettext_lazy as _
-from utils.slugify import generate_slug
+from config.slugify import generate_slug
 
 
 class Contact(models.Model):
