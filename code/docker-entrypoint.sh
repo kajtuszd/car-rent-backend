@@ -34,13 +34,6 @@ fi
 python manage.py makemigrations || exit 1
 python manage.py migrate || exit 1
 
-# echo ''
-# echo '--------------------------'
-# echo 'Pylint'
-# echo '--------------------------'
-# echo ''
-# find . -type f -name "*.py" | xargs pylint
-
 echo ''
 echo '--------------------------'
 echo 'Ownership fixes'
