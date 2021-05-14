@@ -77,7 +77,7 @@ class Car(models.Model):
                                      decimal_places=1, default="7")
     max_passengers = models.IntegerField(_('Max passengers'), default="5",
                                          validators=[MaxValueValidator(9),
-                                                     MinValueValidator(3)])
+                                                     MinValueValidator(2)])
     image = models.ImageField(_('Car image'), null=True, blank=True,
                               upload_to='pics')
     engine = models.ForeignKey(Engine, on_delete=models.CASCADE)

@@ -1,11 +1,10 @@
 from .validators import no_future_validator, no_past_validator
 from car.models import Car
+from config.settings import AUTH_USER_MODEL
+from config.slugify import generate_slug
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
 from django.core.validators import MaxValueValidator, MinValueValidator
-from django.core.exceptions import ValidationError
-from utils.slugify import generate_slug
-from django_extensions.db.fields import AutoSlugField
 
 
 class PaymentMethod():
@@ -50,6 +49,7 @@ class Service(models.Model):
     slug_field = models.CharField(_('Slug'), default=generate_slug,
                                   max_length=7,
                                   unique=True, db_index=True, editable=False)
+    customer = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     class Meta:
         verbose_name = _('service')
