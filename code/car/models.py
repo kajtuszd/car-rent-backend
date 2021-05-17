@@ -1,3 +1,4 @@
+from config.slugify import generate_slug
 import datetime
 from django.db import models
 from django.utils.translation import ugettext_lazy as _
@@ -81,10 +82,11 @@ class Car(models.Model):
     image = models.ImageField(_('Car image'), null=True, blank=True,
                               upload_to='pics')
     engine = models.ForeignKey(Engine, on_delete=models.CASCADE)
-
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
+                                  max_length=7, db_index=True, editable=False)
     class Meta:
         verbose_name = _('car')
         verbose_name_plural = _('cars')
 
     def __str__(self):
-        return f'{self.brand} {self.model} {self.registration}'
+        return f'{self.brand} {self.model} {self.engine}'
