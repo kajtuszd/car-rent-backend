@@ -27,8 +27,8 @@ class Payment(models.Model):
                                 validators=[no_future_validator],
                                 help_text="Enter only if payment was made")
     slug = models.CharField(_('Slug'), default=generate_slug,
-                                  max_length=7,
-                                  unique=True, db_index=True, editable=False)
+                            max_length=7,
+                            unique=True, db_index=True, editable=False)
 
     class Meta:
         verbose_name = _('payment')
@@ -47,8 +47,8 @@ class Service(models.Model):
     car = models.ForeignKey(Car, on_delete=models.PROTECT, null=True,
                             blank=False, unique=False)
     slug = models.CharField(_('Slug'), default=generate_slug,
-                                  max_length=7,
-                                  unique=True, db_index=True, editable=False)
+                            max_length=7,
+                            unique=True, db_index=True, editable=False)
     customer = models.ForeignKey(AUTH_USER_MODEL, on_delete=models.PROTECT)
 
     class Meta:

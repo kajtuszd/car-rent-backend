@@ -26,8 +26,7 @@ class Engine(models.Model):
     engine_type = models.CharField(_('Engine type'), max_length=20,
                                    choices=EngineType.TYPES)
     slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
-                                  max_length=7, db_index=True, editable=False)
-
+                            max_length=7, db_index=True, editable=False)
 
     class Meta:
         verbose_name = _('engine')
@@ -65,7 +64,7 @@ class Car(models.Model):
                                     validators=[RegexValidator(
                                         r'^[A-Z]{2,3}[\s]{1}[0-9A-Z]{5,6}$',
                                         _("Please enter 2-3 letters, "
-                                            "whitespace and 5-6 signs"),
+                                          "whitespace and 5-6 signs"),
                                         'invalid')],
                                     max_length=10, blank=False, unique=True,
                                     null=True)
@@ -86,7 +85,8 @@ class Car(models.Model):
                               upload_to='pics')
     engine = models.ForeignKey(Engine, on_delete=models.CASCADE)
     slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
-                                  max_length=7, db_index=True, editable=False)
+                            max_length=7, db_index=True, editable=False)
+
     class Meta:
         verbose_name = _('car')
         verbose_name_plural = _('cars')
