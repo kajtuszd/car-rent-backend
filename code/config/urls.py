@@ -8,4 +8,5 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('car_rent/', include('car_rent.urls')),
     path('cars/', include('car.urls')),
+    path('customers/', include('customer.urls')),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -1,0 +1,6 @@
+{% extends "car_rent/base.html" %}
+{% block content %}
+    {% for user in users %}
+        <a href="{% url 'user-detail' user.slug %}"> <h3>{{ user }}</h3> </a>
+    {% endfor %}
+{% endblock %}

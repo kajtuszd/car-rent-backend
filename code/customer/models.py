@@ -22,7 +22,7 @@ class Address(models.Model):
                                                                'be entered in '
                                                                'the format '
                                                                '12-345.'))])
-    slug_field = models.CharField(_('Slug'), default=generate_slug, unique=True,
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
                                   max_length=7, db_index=True, editable=False)
 
     class Meta:
@@ -30,7 +30,7 @@ class Address(models.Model):
         verbose_name_plural = _('addresses')
 
     def __str__(self):
-        return f'{self.slug_field}'
+        return f'{self.slug}'
 
 
 class User(AbstractUser):
@@ -56,6 +56,8 @@ class User(AbstractUser):
                                    unique=True, blank=False, null=True)
     address = models.OneToOneField(Address, on_delete=models.PROTECT,
                                    blank=False, null=True)
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
+                                  max_length=7, db_index=True, editable=False)
 
     class Meta:
         verbose_name = _('user')
