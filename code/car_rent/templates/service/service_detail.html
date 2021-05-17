@@ -1,0 +1,14 @@
+{% extends "car_rent/base.html" %}
+{% block content %}
+    <h3>Customer: {{object.customer}}</h3>
+    <h3>Car: {{object.car}}</h3>
+    <h3>Rent date: {{object.rent_date}}</h3>
+    <h3>Return date: {{object.return_date}}</h3>
+    <h3>Payment: {{object.payment.amount}}€ {{object.payment.payment_method}}</h3>
+    {% if object.payment.is_paid == True %}
+        <h3>Is paid: Yes</h3>
+        <h3>Payment date: {{object.payment.date}}</h3>
+        {% else %}
+        <h3>Is paid: No</h3>
+    {% endif %}
+{% endblock %}
