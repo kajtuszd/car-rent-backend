@@ -2,4 +2,6 @@
 {% block content %}
     <h3>{{ object }}</h3>
     <h3>{{ object.email }} {{ object.phone }}</h3>
+    <h3>{{ object.address.zip_code }} {{ object.address.city }}</h3>
+    <h3>{{ object.address.street }} {{ object.address.house_number }} {{ object.address.flat_number|default_if_none:""}}</h3>
 {% endblock %}
