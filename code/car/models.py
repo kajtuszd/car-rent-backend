@@ -8,9 +8,9 @@ from django.core.validators import (MaxValueValidator, MinValueValidator,
 
 class EngineType():
     TYPES = (
-        ('PETROL', _('PETROL')),
-        ('DIESEL', _('DIESEL')),
-        ('HYBRID', _('HYBRID')),
+        ('Petrol', _('Petrol')),
+        ('Diesel', _('Diesel')),
+        ('Hybrid', _('Hybrid')),
         ('LPG', _('LPG')),
     )
 
@@ -25,6 +25,9 @@ class Engine(models.Model):
                                                  MinValueValidator(20)])
     engine_type = models.CharField(_('Engine type'), max_length=20,
                                    choices=EngineType.TYPES)
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
+                                  max_length=7, db_index=True, editable=False)
+
 
     class Meta:
         verbose_name = _('engine')
@@ -79,7 +82,7 @@ class Car(models.Model):
     max_passengers = models.IntegerField(_('Max passengers'), default="5",
                                          validators=[MaxValueValidator(9),
                                                      MinValueValidator(2)])
-    image = models.ImageField(_('Car image'), null=True, blank=True,
+    image = models.ImageField(_('Car image'), null=True, blank=False,
                               upload_to='pics')
     engine = models.ForeignKey(Engine, on_delete=models.CASCADE)
     slug = models.CharField(_('Slug'), default=generate_slug, unique=True,

@@ -1,5 +1,5 @@
 from django.views.generic import ListView, DetailView
-from .models import Car
+from .models import Car, Engine
 
 
 class CarListView(ListView):
@@ -11,3 +11,14 @@ class CarListView(ListView):
 
 class CarDetailView(DetailView):
     model = Car
+
+
+class EngineListView(ListView):
+    model = Engine
+    template_name = 'car/engine_list.html'
+    context_object_name = 'engines'
+    ordering = ['horsepower']
+
+
+class EngineDetailView(DetailView):
+    model = Engine

@@ -1,6 +1,6 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
     {% for car in cars %}
-        <a href="{% url 'car-detail' car.slug %}"> <h1>{{ car }}</h1> </a>
+        <a href="{% url 'car-detail' car.slug %}"> <h3>{{ car }}</h3> </a>
     {% endfor %}
 {% endblock %}

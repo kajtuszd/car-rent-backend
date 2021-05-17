@@ -1,0 +1,6 @@
+{% extends "car_rent/base.html" %}
+{% block content %}
+    {% for engine in engines %}
+        <a href="{% url 'engine-detail' engine.slug %}"> <h3>{{ engine }}</h3> </a>
+    {% endfor %}
+{% endblock %}
