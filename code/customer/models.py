@@ -19,27 +19,27 @@ class Address(models.Model):
     zip_code = models.CharField(_('Zip code'), null=True, max_length=6,
                                 validators=[RegexValidator(r'^\d{2}-\d{3}$',
                                                            _('Zip code must '
-                                                               'be entered in '
-                                                               'the format '
-                                                               '12-345.'))])
-    slug_field = models.CharField(_('Slug'), default=generate_slug, unique=True,
-                                  max_length=7, db_index=True, editable=False)
+                                                             'be entered in '
+                                                             'the format '
+                                                             '12-345.'))])
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
+                            max_length=7, db_index=True, editable=False)
 
     class Meta:
         verbose_name = _('address')
         verbose_name_plural = _('addresses')
 
     def __str__(self):
-        return f'{self.slug_field}'
+        return f'{self.slug}'
 
 
 class User(AbstractUser):
     phone = models.CharField(_('Phone number'), unique=True, null=True,
-                            max_length=15, validators=[
+                             max_length=15, validators=[
             RegexValidator(r'^\+?1?\d{9,15}$', _('Phone number must be '
-                                                'entered in the format: '
-                                                '123456789 or +48123456789. '
-                                                'Up to 15 digits allowed.'))])
+                                                 'entered in the format: '
+                                                 '123456789 or +48123456789. '
+                                                 'Up to 15 digits allowed.'))])
     email = models.CharField(_('Email address'), max_length=30, unique=True,
                              validators=[EmailValidator(
                                  message='Please enter valid E-mail address')])
@@ -56,6 +56,8 @@ class User(AbstractUser):
                                    unique=True, blank=False, null=True)
     address = models.OneToOneField(Address, on_delete=models.PROTECT,
                                    blank=False, null=True)
+    slug = models.CharField(_('Slug'), default=generate_slug, unique=True,
+                            max_length=7, db_index=True, editable=False)
 
     class Meta:
         verbose_name = _('user')

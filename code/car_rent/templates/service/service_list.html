@@ -1,0 +1,6 @@
+{% extends "car_rent/base.html" %}
+{% block content %}
+    {% for service in services %}
+        <a href="{% url 'service-detail' service.slug %}"> <h3>{{ service }}</h3> </a>
+    {% endfor %}
+{% endblock %}
