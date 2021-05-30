@@ -140,3 +140,4 @@ STATICFILES_DIRS = (
 )
 
 LOGIN_REDIRECT_URL = 'car_rent-home'
+LOGIN_URL = 'login'
