@@ -13,6 +13,17 @@
     <a href="{% url 'engine-list' %}"><h2>Engine List</h2></a>
     <a href="{% url 'user-list' %}"><h2>Customer List</h2></a>
     <a href="{% url 'service-list' %}"><h2>Service List</h2></a>
+    {% if messages %}
+        {% for message in messages %}
+            {{ message }}
+        {% endfor %}
+    {% endif %}
+    {% if user.is_authenticated %}
+        <a href="{% url 'logout' %}">Logout</a>
+    {% else %}
+        <a href="{% url 'login' %}">Login</a>
+        <a href="{% url 'register' %}">Register</a>
+    {% endif %}
     {% block content %}{% endblock %}
 </body>
 </html>

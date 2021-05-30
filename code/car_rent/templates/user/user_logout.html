@@ -1,15 +1,7 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
-    <form method="POST">
-        {% csrf_token %}
-        <h2>Logout</h2>
-        
-        <fieldset>
-            {{ form.as_p }}
-        </fieldset>
+    <h2>Logout</h2>
+    <h3>You have been logged out</h3>
 
-        <button type="submit">Sign Up</button>
-
-        <h3><a href="{% url 'register' %}">Sign In</a></h3>
-    </form>    
+    <h3><a href="{% url 'login' %}">Log In Again</a></h3>
 {% endblock %}

@@ -18,7 +18,7 @@ def register_user(request):
             form.save()
             username = form.cleaned_data.get('username')
             messages.success(request, f'Created account for {username}')
-            return redirect('car_rent-home')
+            return redirect('login')
     else:
         form = CustomUserCreationForm()
     return render(request, 'user/user_register.html', {'form': form})
