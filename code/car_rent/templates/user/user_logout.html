@@ -2,7 +2,7 @@
 {% block content %}
     <form method="POST">
         {% csrf_token %}
-        <h2>Register</h2>
+        <h2>Logout</h2>
         
         <fieldset>
             {{ form.as_p }}
@@ -10,7 +10,6 @@
 
         <button type="submit">Sign Up</button>
 
-        <h3><a href="{% url 'login' %}">Sign In</a></h3>
-
+        <h3><a href="{% url 'register' %}">Sign In</a></h3>
     </form>    
 {% endblock %}
