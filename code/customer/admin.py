@@ -12,7 +12,23 @@ class CustomUserAdmin(UserAdmin):
     add_fieldsets = UserAdmin.add_fieldsets + (
         (None, {'fields': ('email', 'first_name', 'last_name',)}),
     )
+    list_display = (
+        'first_name', 'last_name', 'email', 'username', 'driver_license_id',
+        'personal_id', 'phone', 'is_superuser', 'is_staff', 'is_active',
+        'date_joined', 'address',)
+    ordering = ('email', 'first_name', 'last_name', 'username', 'date_joined',)
+    search_fields = (
+        'driver_license_id', 'email', 'phone', 'first_name', 'last_name',
+        'username', 'personal_id',)
+    list_filter = ('is_active', 'is_superuser', 'is_staff')
 
 
-admin.site.register(Address)
+class AddressAdmin(admin.ModelAdmin):
+    list_display = (
+        'city', 'street', 'house_number', 'flat_number', 'zip_code',)
+    ordering = ('city',)
+    search_fields = ('slug',)
+
+
+admin.site.register(Address, AddressAdmin)
 admin.site.register(User, CustomUserAdmin)
