@@ -19,7 +19,7 @@ class CustomUserAdmin(UserAdmin):
     ordering = ('email', 'first_name', 'last_name', 'username', 'date_joined',)
     search_fields = (
         'driver_license_id', 'email', 'phone', 'first_name', 'last_name',
-        'username', 'personal_id',)
+        'username', 'personal_id', 'slug',)
     list_filter = ('is_active', 'is_superuser', 'is_staff')
 
 
