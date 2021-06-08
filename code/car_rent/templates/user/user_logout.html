@@ -2,6 +2,7 @@
 {% block content %}
     <h2>Logout</h2>
     <h3>You have been logged out</h3>
-
-    <h3><a href="{% url 'login' %}">Log In Again</a></h3>
+    <div class="midbar-hyperref">
+        <a href="{% url 'login' %}">Log In Again</a>
+    </div>
 {% endblock %}
