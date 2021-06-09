@@ -4,7 +4,7 @@ from django.contrib import messages
 from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
-from .models import User
+from .models import User, Address
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -36,16 +36,28 @@ class UserUpdateForm(forms.ModelForm):
             'driver_license_id', 'personal_id',]
 
 
+class AddressForm(forms.ModelForm):
+
+    class Meta:
+        model = Address
+        fields = ['city', 'street', 'house_number', 'flat_number', 'zip_code']
+
+
 @login_required
 def profile(request):
     if request.method == 'POST':
         update_form = UserUpdateForm(request.POST, instance=request.user)
-        if update_form.is_valid():
+        address_form = AddressForm(request.POST, instance=request.user.address)
+        if update_form.is_valid() and address_form.is_valid():
+            update_form.address = address_form
+            address_form.save()
             update_form.save()
             return redirect('profile')
     else:
         update_form = UserUpdateForm(instance=request.user)
+        address_form = AddressForm(instance=request.user.address)
     context = {
-        'update_form': update_form
+        'update_form': update_form,
+        'address_form': address_form
     }
     return render(request, 'user/user_profile.html', context)
