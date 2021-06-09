@@ -1,0 +1,15 @@
+{% extends "car_rent/base.html" %}
+{% block content %}
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Rent a car</h2>
+        
+        <fieldset>
+            {{ form1.as_p }}
+            {{ form2.as_p }}
+        </fieldset>
+
+        <button type="submit">Rent</button>
+
+    </form>    
+{% endblock %}
