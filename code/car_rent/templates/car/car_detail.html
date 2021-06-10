@@ -1,7 +1,9 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
     <h3>{{ object }}</h3>
-    <img src="{{ object.image.url }}" alt="img" width="400px">
+    <div class="detail-image">
+        <img src="{{ object.image.url }}" alt="img" width="400px">
+    </div>
     <h3>Price per day: {{object.price_per_day}}€</h3>
     <h3>Fuel usage: {{object.fuel_usage}}L/100km</h3>
     <h3>Production year: {{object.production_year}}</h3>

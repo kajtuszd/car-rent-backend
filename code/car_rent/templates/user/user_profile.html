@@ -1,4 +1,15 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
     <h1>{{ user.username }} profile</h1>
+    <form method="POST">
+        {% csrf_token %}
+        <h2>Change personal information</h2>
+        
+        <fieldset>
+            {{ update_form.as_p }}
+            {{ address_form.as_p }}
+        </fieldset>
+
+        <button type="submit">Update</button>
+    </form> 
 {% endblock %}
