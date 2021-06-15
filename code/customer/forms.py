@@ -32,7 +32,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name',
+        fields = ['username', 'email', 'phone', 'first_name', 'last_name',
             'driver_license_id', 'personal_id',]
 
 
@@ -49,9 +49,9 @@ def profile(request):
         update_form = UserUpdateForm(request.POST, instance=request.user)
         address_form = AddressForm(request.POST, instance=request.user.address)
         if update_form.is_valid() and address_form.is_valid():
-            update_form.address = address_form
-            address_form.save()
-            update_form.save()
+            profile_info = update_form.save(commit=True)
+            profile_info.address = address_form.save()
+            profile_info.save()
             return redirect('profile')
     else:
         update_form = UserUpdateForm(instance=request.user)
