@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, Address
+from service.models import Service
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -56,8 +57,10 @@ def profile(request):
     else:
         update_form = UserUpdateForm(instance=request.user)
         address_form = AddressForm(instance=request.user.address)
+    services_query = Service.objects.filter(customer=request.user)
     context = {
         'update_form': update_form,
-        'address_form': address_form
+        'address_form': address_form,
+        'services_query': services_query
     }
     return render(request, 'user/user_profile.html', context)

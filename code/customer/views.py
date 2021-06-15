@@ -1,7 +1,6 @@
 from django.views.generic import ListView, DetailView
 from .models import User
 
-
 class UserListView(ListView):
     model = User
     template_name = 'user/user_list.html'
