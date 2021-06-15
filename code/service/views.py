@@ -1,4 +1,4 @@
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, DeleteView
 from .models import Service
 
 
@@ -11,3 +11,8 @@ class ServiceListView(ListView):
 
 class ServiceDetailView(DetailView):
     model = Service
+
+
+class ServiceDeleteView(DeleteView):
+    model = Service
+    success_url = '/car_rent/'

@@ -5,6 +5,7 @@ from django.contrib.auth import get_user_model
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import UserCreationForm
 from .models import User, Address
+from service.models import Service
 
 
 class CustomUserCreationForm(UserCreationForm):
@@ -32,7 +33,7 @@ class UserUpdateForm(forms.ModelForm):
 
     class Meta:
         model = User
-        fields = ['username', 'email', 'first_name', 'last_name',
+        fields = ['username', 'email', 'phone', 'first_name', 'last_name',
             'driver_license_id', 'personal_id',]
 
 
@@ -49,15 +50,17 @@ def profile(request):
         update_form = UserUpdateForm(request.POST, instance=request.user)
         address_form = AddressForm(request.POST, instance=request.user.address)
         if update_form.is_valid() and address_form.is_valid():
-            update_form.address = address_form
-            address_form.save()
-            update_form.save()
+            profile_info = update_form.save(commit=True)
+            profile_info.address = address_form.save()
+            profile_info.save()
             return redirect('profile')
     else:
         update_form = UserUpdateForm(instance=request.user)
         address_form = AddressForm(instance=request.user.address)
+    services_query = Service.objects.filter(customer=request.user)
     context = {
         'update_form': update_form,
-        'address_form': address_form
+        'address_form': address_form,
+        'services_query': services_query
     }
     return render(request, 'user/user_profile.html', context)

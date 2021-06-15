@@ -1,6 +1,10 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
-    {% for user in users %}
-        <a href="{% url 'user-detail' user.slug %}"> <h3>{{ user }}</h3></a>
-    {% endfor %}
+    {% if user.is_staff %}
+        {% for other_user in users %}
+            <a href="{% url 'user-detail' other_user.slug %}"> <h3>{{ other_user }}</h3></a>
+        {% endfor %}
+    {% else %}
+        <h3>Access denied</h3>
+    {% endif %}
 {% endblock %}
