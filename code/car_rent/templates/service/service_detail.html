@@ -12,6 +12,9 @@
             {% else %}
             <h3>Is paid: No</h3>
         {% endif %}
+        <div class="midbar-hyperref">
+            <a href="{% url 'service-delete' service.slug %}">Delete</a>
+        </div>
     {% else %}
         <h3>Access denied</h3>
     {% endif %}
