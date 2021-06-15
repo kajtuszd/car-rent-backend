@@ -1,9 +1,10 @@
 {% extends "car_rent/base.html" %}
 {% block content %}
-    <div class="midbar-hyperref">
-        <a href="{% url 'service-form' %}">Rent a car</a>
-    </div>
-    {% for service in services %}
-        <a href="{% url 'service-detail' service.slug %}"> <h3>{{ service }}</h3> </a>
-    {% endfor %}
+    {% if request.user.is_staff %}
+        {% for service in services %}
+            <a href="{% url 'service-detail' service.slug %}"> <h3>{{ service }}</h3> </a>
+        {% endfor %}
+    {% else %}
+        <h3>Access denied</h3>
+    {% endif %}
 {% endblock %}
